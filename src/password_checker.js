@@ -5,24 +5,29 @@ const passwordIsValid = ( password ) => {
 	let digit = /^[0-9]/g;
 	let whiteSpace = /\s/g;
 	let specialChar = /[!@#$%^&*(),.?":{}|<>]/g;
-
-	if( !password ){
-		return 'password should exist' 
-	}
-	for( let i = 0; i < password.length; i++ ) {
 	
-		if( password.length < 8 &&
-			password[i] != lCase &&
-			password[i] != uCase &&
-			password[i] != digit &&
-			password[i] != specialChar &&
-			password[i] != whiteSpace ) {
-			return 'not valid' 
+	try {
+		if( !password ){
+			return 'password should exist' 
 		}
-		else {
-			return 'password is valid' 
+		for( let i = 0; i < password.length; i++ ) {
+	
+			if( password.length < 8 &&
+				password[i] != lCase &&
+				password[i] != uCase &&
+				password[i] != digit &&
+				password[i] != specialChar &&
+				password[i] != whiteSpace ) {
+				return 'not valid' 
+			}
+			else {
+				return 'password is valid' 
+			}
+			break;
 		}
-		break;
+	}
+	catch(e){
+		console.log(e)
 	}
 }
 
@@ -63,6 +68,8 @@ const passwordStrength = ( password ) => {
 		return 'Weak'
 	}
 }
+
+
 
 module.export = {
 	passwordIsValid,
