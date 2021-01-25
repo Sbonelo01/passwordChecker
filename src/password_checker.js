@@ -78,16 +78,19 @@ const passwordStrength = ( password ) => {
  */
 
 const passwordIsOk = (password) => {
-	if (password != '' && password.length > 8) {
-		if (password.match(/[a-z]/g) !== null || password.match(/[A-Z]/g) !== null || password.match(/[0-9]/g) !== null || password.match(/[!@#$%^&*()_{}+'"]/g) !== null) {
+
+	if ( password != '' && password.length > 8 ) {
+		if ( password.match(/[a-z]/g) !== null || password.match(/[A-Z]/g) !== null || 
+			password.match(/[0-9]/g) !== null || password.match(/[!@#$%^&*()_{}+'"]/g) !== null ) {
 			return true;
 		}
 	}
-
 	return false;
+
 }
 
 module.export = {
 	passwordIsValid,
-	passwordStrength
+	passwordStrength,
+	passwordIsOk
 }
