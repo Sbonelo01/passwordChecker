@@ -8,7 +8,7 @@ const passwordIsValid = ( password ) => {
 	
 	try {
 		if( !password ){
-			return 'password should exist' 
+			throw 'password should exist' 
 		}
 		for( let i = 0; i < password.length; i++ ) {
 	
@@ -18,7 +18,7 @@ const passwordIsValid = ( password ) => {
 				password[i] != digit &&
 				password[i] != specialChar &&
 				password[i] != whiteSpace ) {
-				return 'not valid' 
+				throw 'not valid' 
 			}
 			else {
 				return 'password is valid' 
@@ -30,6 +30,10 @@ const passwordIsValid = ( password ) => {
 		console.log(e)
 	}
 }
+
+/*
+ * 		requirements as per ACN syllabus: passwordStrength
+ */		
 
 const passwordStrength = ( password ) => {
 
@@ -69,7 +73,19 @@ const passwordStrength = ( password ) => {
 	}
 }
 
+/*
+ * 		requirements as per Umuzi syllabus: passwordIsOk
+ */
 
+const passwordIsOk = (password) => {
+	if (password != '' && password.length > 8) {
+		if (password.match(/[a-z]/g) !== null || password.match(/[A-Z]/g) !== null || password.match(/[0-9]/g) !== null || password.match(/[!@#$%^&*()_{}+'"]/g) !== null) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 module.export = {
 	passwordIsValid,
