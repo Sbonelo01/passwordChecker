@@ -77,7 +77,7 @@ const passwordStrength = ( password ) => {
  * 		requirements as per Umuzi syllabus: passwordIsOk
  */
 
-const passwordIsOk = (password) => {
+const passwordIsOk = ( password ) => {
 
 	if ( password != '' && password.length > 8 ) {
 		if ( password.match(/[a-z]/g) !== null || password.match(/[A-Z]/g) !== null || 
