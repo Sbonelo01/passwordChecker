@@ -1,27 +1,27 @@
 const passwordIsValid = ( password ) => {
-	
+
 	let lCase = /^[a-z]/g;
 	let uCase = /^[A-Z]/g;
 	let digit = /^[0-9]/g;
 	let whiteSpace = /\s/g;
 	let specialChar = /[!@#$%^&*(),.?":{}|<>]/g;
-	
+
 	try {
 		if( !password ){
-			throw 'password should exist' 
+			throw 'password should exist'
 		}
 		for( let i = 0; i < password.length; i++ ) {
-	
+
 			if( password.length < 8 &&
 				password[i] != lCase &&
 				password[i] != uCase &&
 				password[i] != digit &&
 				password[i] != specialChar &&
 				password[i] != whiteSpace ) {
-				throw 'not valid' 
+				throw 'not valid'
 			}
 			else {
-				return 'password is valid' 
+				return 'password is valid'
 			}
 			break;
 		}
@@ -33,7 +33,7 @@ const passwordIsValid = ( password ) => {
 
 /*
  * 		requirements as per ACN syllabus: passwordStrength
- */		
+ */
 
 const passwordStrength = ( password ) => {
 
@@ -80,7 +80,7 @@ const passwordStrength = ( password ) => {
 const passwordIsOk = ( password ) => {
 
 	if ( password != '' && password.length > 8 ) {
-		if ( password.match(/[a-z]/g) !== null || password.match(/[A-Z]/g) !== null || 
+		if ( password.match(/[a-z]/g) !== null || password.match(/[A-Z]/g) !== null ||
 			password.match(/[0-9]/g) !== null || password.match(/[!@#$%^&*()_{}+'"]/g) !== null ) {
 			return true;
 		}
@@ -88,6 +88,13 @@ const passwordIsOk = ( password ) => {
 	return false;
 
 }
+
+const logger = winston.createLogger({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports({ filename: 'debug.log'  })
+    ]
+})
 
 module.export = {
 	passwordIsValid,
