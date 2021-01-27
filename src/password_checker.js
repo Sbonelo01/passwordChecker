@@ -31,9 +31,9 @@ const passwordIsValid = ( password ) => {
 	}
 }
 
-/*
- * 		requirements as per ACN syllabus: passwordStrength
- */
+/*                                                          *
+ * 		requirements as per ACN syllabus: passwordStrength  *
+ *                                                          */
 
 const passwordStrength = ( password ) => {
 
@@ -73,9 +73,9 @@ const passwordStrength = ( password ) => {
 	}
 }
 
-/*
- * 		requirements as per Umuzi syllabus: passwordIsOk
- */
+/*                                                          *
+ * 		requirements as per Umuzi syllabus: passwordIsOk    *
+ *                                                          */
 
 const passwordIsOk = ( password ) => {
 
@@ -88,6 +88,10 @@ const passwordIsOk = ( password ) => {
 	return false;
 
 }
+
+/*                                                  *
+ *      making a logger with the winston module     *
+ *                                                  */
 
 const winston = require('winston')
 
@@ -102,13 +106,23 @@ const logger = winston.createLogger({
     ]
 })
 
-if( passwordIsOk == true  ){
+// logging for the passwordIsOk function
+
+const isOk = logger.debug('User password not ok')
+const notOk = logger.debug('User password is not ok')
+
+if( passwordIsOk == true ){
     logger.add(new winston.transports.Console({
-        format: winston.format.simple(),
+        format: winston.format.simple(isOk),
+    }))
+}
+if( passwordIsOk != true ){
+    logger.add(new winston.transports.Console({
+        format: winston.format.simple(notOk),
     }))
 }
 
-logger.debug('User password is ok')
+//logger.debug('User password is ok')
 
 module.export = {
 	passwordIsValid,
