@@ -89,12 +89,26 @@ const passwordIsOk = ( password ) => {
 
 }
 
+const winston = require('winston')
+
 const logger = winston.createLogger({
+
+    level: 'debug',
+    format: winston.format.json(),
+    defaultMeta: { service: 'user-service'  },
+
     transports: [
-        new winston.transports.Console(),
-        new winston.transports({ filename: 'debug.log'  })
+        new winston.transports.File({ filename: 'error.log', level: 'debug' }),
     ]
 })
+
+if( passwordIsOk == true  ){
+    logger.add(new winston.transports.Console({
+        format: winston.format.simple(),
+    }))
+}
+
+logger.debug('User password is ok')
 
 module.export = {
 	passwordIsValid,
