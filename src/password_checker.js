@@ -1,3 +1,27 @@
+
+/*                                                  *
+ *      making a logger with the winston module     *
+ *                                                  */
+
+
+const winston = require('winston')
+
+const logger = winston.createLogger({
+    level: 'info',
+    format: winston.format.json(),
+    defaultMeta: { service: 'user-service'  },
+
+    transports: [
+    	new winston.transports.Console({ level: 'debug' }),
+        new winston.transports.File({ filename: './log/error.log' }),
+    ],
+
+    exeptionHandlers: [
+    	new winston.transports.File({ filename: './log/error.log' })
+    ],
+})
+
+
 const passwordIsValid = ( password ) => {
 
 	let lCase = /^[a-z]/g;
@@ -8,6 +32,7 @@ const passwordIsValid = ( password ) => {
 
 	try {
 		if( !password ){
+			logger.error('password should exist')
 			throw 'password should exist'
 		}
 		for( let i = 0; i < password.length; i++ ) {
@@ -18,6 +43,7 @@ const passwordIsValid = ( password ) => {
 				password[i] != digit &&
 				password[i] != specialChar &&
 				password[i] != whiteSpace ) {
+				logger.error('not valid')
 				throw 'not valid'
 			}
 			else {
@@ -27,7 +53,7 @@ const passwordIsValid = ( password ) => {
 		}
 	}
 	catch(e){
-		console.log(e)
+		return e
 	}
 }
 
@@ -82,47 +108,13 @@ const passwordIsOk = ( password ) => {
 	if ( password != '' && password.length > 8 ) {
 		if ( password.match(/[a-z]/g) !== null || password.match(/[A-Z]/g) !== null ||
 			password.match(/[0-9]/g) !== null || password.match(/[!@#$%^&*()_{}+'"]/g) !== null ) {
+			logger.debug('User password is ok')
 			return true;
 		}
 	}
+	logger.debug('User password is not ok')
 	return false;
-
 }
-
-/*                                                  *
- *      making a logger with the winston module     *
- *                                                  */
-
-const winston = require('winston')
-
-const logger = winston.createLogger({
-
-    level: 'debug',
-    format: winston.format.json(),
-    defaultMeta: { service: 'user-service'  },
-
-    transports: [
-        new winston.transports.File({ filename: 'error.log', level: 'debug' }),
-    ]
-})
-
-// logging for the passwordIsOk function
-
-const isOk = logger.debug('User password not ok')
-const notOk = logger.debug('User password is not ok')
-
-if( passwordIsOk == true ){
-    logger.add(new winston.transports.Console({
-        format: winston.format.simple(isOk),
-    }))
-}
-if( passwordIsOk != true ){
-    logger.add(new winston.transports.Console({
-        format: winston.format.simple(notOk),
-    }))
-}
-
-//logger.debug('User password is ok')
 
 module.export = {
 	passwordIsValid,
